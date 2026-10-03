@@ -1,0 +1,4 @@
+interface:
+  display_name: "SDD"
+  short_description: "Guía el siguiente paso seguro del flujo SDD"
+  default_prompt: "Usa $sdd para revisar el estado y mostrarme las opciones válidas."
