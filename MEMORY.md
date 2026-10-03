@@ -17,6 +17,7 @@ Memoria operativa entre sesiones. Máximo ~50 líneas; no contiene secretos ni r
 - El proyecto aún debe definir stack, comandos, arquitectura y convenciones.
 - `coordinator`, `planner`, `implementer` y `reviewer` están adaptados para Codex, OpenCode y Claude Code; no quedan placeholders de agentes.
 - Repositorio Git inicializado en `main` y conectado a `git@github.com:HurtadoAndres96/base-project-SDD.git`.
+- `README.md` documenta instalación, entradas directa/multiagente, flujo, gates, agentes y estructura del starter.
 
 ## Decisiones vigentes (y por qué)
 
