@@ -29,7 +29,9 @@ Primer ciclo del proyecto:
 inicio → plan → tareas → ejecutar × N → validar
 ```
 
-`inicio` configura el starter y conduce la primera spec. No se ejecuta `nueva`
+`inicio` configura un proyecto nuevo o existente, espera la aprobación explícita
+de esa configuración y conduce la primera spec. Si la configuración ya quedó
+documentada, retoma desde el gate pendiente. No se ejecuta `nueva`
 inmediatamente después.
 
 Ciclos posteriores:
@@ -63,9 +65,12 @@ git clone git@github.com:HurtadoAndres96/base-project-SDD.git mi-proyecto
 cd mi-proyecto
 ```
 
-También puedes copiar su contenido sobre un proyecto nuevo. No necesitas
-instalar dependencias para usar el kit: las herramientas y comandos del producto
-se definen durante la configuración inicial.
+También puedes adoptar el kit en un proyecto existente: incorpora la skill,
+sus adaptadores y los agentes; integra `AGENTS.md`, `docs/constitution.md`,
+`MEMORY.md` y la plantilla de spec con los documentos reales, conservando las
+reglas y cambios previos. Revisa cualquier conflicto antes de reemplazar un
+archivo. No necesitas instalar dependencias para usar el kit: las herramientas
+y comandos del producto se registran durante la configuración inicial.
 
 ### 2. Abrirlo con tu agente
 
@@ -98,7 +103,14 @@ También puedes usar lenguaje natural con el coordinador:
 @coordinator Acabo de crear este proyecto. Inicia el flujo SDD.
 ```
 
-La etapa `inicio` preguntará una decisión cada vez para completar:
+Para un producto existente cuya configuración ya está documentada:
+
+```text
+@coordinator Retoma inicio desde la aprobación pendiente de la configuración SDD.
+```
+
+La etapa `inicio` inspecciona el contexto disponible y pregunta una decisión
+cada vez cuando falte información para completar:
 
 - nombre y objetivo del proyecto;
 - stack, versiones y entornos soportados;
@@ -106,9 +118,13 @@ La etapa `inicio` preguntará una decisión cada vez para completar:
 - comandos oficiales de instalación, ejecución, pruebas, análisis y build;
 - idiomas y convenciones;
 - reglas de dominio y riesgos conocidos;
-- primera funcionalidad que se convertirá en `specs/001-.../spec.md`.
+- primer cambio que se convertirá en `specs/NNN-.../spec.md` (001 si aún no hay
+  specs numeradas).
 
-El agente no inventará respuestas ni avanzará sin las aprobaciones requeridas.
+Si el proyecto ya existe, la primera spec abarca solo el cambio elegido; por
+ejemplo, mejorar una vista o un recorrido de usuario. La aprobación de la
+configuración se registra en `MEMORY.md` antes de crearla. El agente no inventará
+respuestas ni avanzará sin las aprobaciones requeridas.
 
 ## Uso del equipo de agentes
 

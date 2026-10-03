@@ -23,7 +23,7 @@ Memoria operativa entre sesiones. Máximo ~50 líneas; no contiene secretos ni r
 
 - **Base SDD:** Constitución 1.6; las reglas permanentes viven allí y en `AGENTS.md`, no se duplican en esta memoria.
 - **Entrada portable:** `.agents/skills/sdd/SKILL.md` y sus runbooks en `references/` forman una unidad autocontenida; los adaptadores de Claude Code y OpenCode no duplican el flujo.
-- **Interacción guiada:** `$sdd` o `/sdd` muestra solo acciones válidas según el gate actual y acepta números o lenguaje natural; la ayuda separa el flujo ordenado de las operaciones complementarias sobre specs.
+- **Interacción guiada:** `$sdd` o `/sdd` muestra solo acciones válidas según el gate actual y acepta números o lenguaje natural; `inicio` retoma una configuración pendiente y conduce la primera spec también en proyectos existentes.
 - **Gate de modo:** Las etapas con efectos requieren Build/Default cuando el host distingue modos; un modo incompatible detiene el flujo antes del runbook y nunca se cambia automáticamente.
 - **Coordinación portable:** El coordinador es de solo lectura, delega únicamente en `planner`, `implementer` y `reviewer`, y no duplica el flujo canónico de la skill SDD.
 - **Planificación acotada:** El planner no toca código; escribe artefactos SDD y memoria, y solo durante `inicio` puede configurar `AGENTS.md` y la constitución.
@@ -32,7 +32,7 @@ Memoria operativa entre sesiones. Máximo ~50 líneas; no contiene secretos ni r
 
 ## Aprendizajes y errores a evitar
 
-- (Vacío hasta iniciar el proyecto; registrar solo contexto temporal o errores específicos.)
+- No inferir la aprobación de la configuración por ausencia de placeholders: `MEMORY.md` debe registrar la decisión explícita antes de crear la primera spec.
 
 ## Próximos pasos
 

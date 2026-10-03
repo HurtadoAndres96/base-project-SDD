@@ -1,19 +1,21 @@
-# Inicio del proyecto y primera especificación
+# Configuración SDD y primera especificación
 
-Acabo de inicializar este proyecto con mi starter kit de Spec-Driven Development.
-Actúa como Tech Lead y sigue este orden sin escribir código de producto.
+Aplica este inicio tanto a un proyecto nuevo como a uno existente. Actúa como
+Tech Lead y sigue este orden sin escribir código de producto. En un proyecto
+existente, la primera spec describe solo el cambio elegido; no reespecifica
+todo el producto ni altera funcionalidades anteriores por adopción del kit.
 
 FASE 1 — CONFIGURACIÓN
-1. Lee completos `docs/constitution.md`, `AGENTS.md`, `MEMORY.md` y `specs/templates/spec.md`.
-2. Detecta los campos pendientes de configuración en `AGENTS.md`, `docs/constitution.md` y `MEMORY.md`.
-3. Hazme una sola pregunta cada vez. Espera mi respuesta, valida que sea concreta y actualiza directamente los archivos correspondientes.
-4. No inventes stack, comandos, arquitectura, reglas de dominio ni convenciones.
-5. Si la carpeta no es un repositorio Git, pregúntame si deseo inicializarlo; no lo hagas sin mi confirmación explícita.
-6. Al terminar, comprueba que no queden placeholders de configuración y resume las decisiones para mi aprobación.
+1. Lee completos `docs/constitution.md`, `AGENTS.md`, `MEMORY.md` y `specs/templates/spec.md`. Inspecciona el estado Git y las specs numeradas existentes; conserva archivos y cambios ajenos.
+2. Detecta los campos pendientes. Si el proyecto ya funciona, contrasta stack, comandos, arquitectura y reglas con manifiestos, CI, código y documentación pertinentes. Registra incertidumbres o deriva documental; no presentes una inferencia como hecho verificado ni sobrescribas instrucciones existentes sin conciliarlas.
+3. Pregúntame de una en una solo las decisiones que no puedan resolverse con esa evidencia. Valida cada respuesta y actualiza los archivos correspondientes sin modificar código de producto. No inventes stack, comandos, arquitectura, reglas de dominio ni convenciones.
+4. Si la carpeta no es un repositorio Git, pregúntame si deseo inicializarlo; no lo hagas sin mi confirmación explícita.
+5. Si la configuración ya está documentada pero figura pendiente de aprobación, no la rehagas: comprueba que no queden placeholders y resume las decisiones. Solicita mi aprobación explícita solo si no la he dado para esta configuración en el mensaje actual. La ausencia de placeholders no equivale a aprobación.
+6. Cuando apruebe la configuración actual, registra esa decisión en `MEMORY.md`: `**Estado:** Configuración aprobada; primera spec pendiente` y “Siguiente acción: Definir la primera spec con `inicio`”. Si ya consta esa aprobación, continúa sin solicitarla de nuevo. Detente aquí si falta la aprobación.
 
 FASE 2 — PRIMERA ESPECIFICACIÓN
-1. Después de que yo apruebe la configuración, pregúntame una cosa cada vez para definir la primera funcionalidad.
-2. Usa exactamente la estructura de `specs/templates/spec.md` y crea `specs/001-nombre-corto/spec.md`.
+1. Con la configuración aprobada, comprueba si la primera spec ya se creó durante `inicio`. Si está en `Borrador` y esta conversación retoma su revisión o aprobación, continúa en FASE 3 sin crearla de nuevo. Si hay otra spec activa, informa su estado y dirige a `revisar` o a la etapa que corresponda. Si existen specs numeradas pero ninguna está activa, detente y ofrece `foco` o `nueva` según la intención.
+2. Si aún no hay primera spec, pregúntame una cosa cada vez para definir el primer cambio que gestionará SDD. Puede ser una funcionalidad, una mejora de interfaz o experiencia, o una corrección acotada de un producto existente. Usa exactamente la estructura de `specs/templates/spec.md` y crea `specs/NNN-nombre-corto/spec.md`, donde `NNN` es el siguiente número monotónico disponible (001 si no hay specs numeradas). No sobrescribas ninguna existente.
 3. Redacta requisitos atómicos, observables y verificables; identifica actores, datos, RNF, casos límite, fuera de alcance, supuestos y dependencias.
 4. Registra en `MEMORY.md` la ruta relativa de esta spec como “Especificación activa”, su estado `Borrador`, y reinicia “Plan activo”, “Tareas activas” y “Última validación” a `Ninguno`.
 5. Mantén su estado en `Borrador`; no diseñes arquitectura ni escribas código todavía.

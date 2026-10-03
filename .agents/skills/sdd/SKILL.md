@@ -38,9 +38,11 @@ Cuando la invocación no tenga argumentos, diga `menú` o pregunte qué sigue:
    referencia. Si memoria y artefactos discrepan, muestra la discrepancia y usa
    el artefacto como verdad para construir el menú; no corrijas archivos todavía.
 3. Determina el primer gate pendiente en este orden:
-   configuración sin placeholders → spec activa → spec aprobada → plan aprobado
-   y compatible → tareas aprobadas y compatibles → tareas completadas →
-   validación vigente.
+   configuración completa **y aprobada** → primera spec creada → spec activa →
+   spec aprobada → plan aprobado y compatible → tareas aprobadas y compatibles
+   → tareas completadas → validación vigente. La ausencia de placeholders no
+   demuestra aprobación: comprueba la decisión explícita registrada en
+   `MEMORY.md` o recibida en la conversación actual.
 4. Muestra entre dos y cinco acciones aplicables. Numéralas dinámicamente, marca
    una como `Recomendada` y explica en una frase el estado o bloqueo relevante.
    Incluye `Ver estado y bloqueos` cuando ayude y `Ayuda completa` como última
@@ -50,9 +52,12 @@ Cuando la invocación no tenga argumentos, diga `menú` o pregunte qué sigue:
 
 Usa estas reglas para recomendar la siguiente acción:
 
-- Si quedan placeholders de configuración, recomienda `inicio`.
-- Si la configuración está completa y no hay spec activa, recomienda `nueva`;
-  ofrece `foco` cuando existan specs seleccionables.
+- Si la configuración está incompleta o su aprobación sigue pendiente,
+  recomienda `inicio`, incluso si ya no quedan placeholders.
+- Si la configuración está aprobada y aún no existe ninguna spec numerada,
+  recomienda `inicio` para conducir la primera spec.
+- Si ya existen specs numeradas pero no hay una activa, ofrece `foco` para
+  seleccionar una existente y `nueva` para un objetivo independiente.
 - Si la spec activa está en `Borrador`, recomienda `revisar`.
 - Si falta un plan aprobado compatible, recomienda `plan`.
 - Si falta un `tasks.md` aprobado compatible, recomienda `tareas`.
@@ -69,12 +74,19 @@ o frase inequívoca, usa esa selección sin exigir que se vuelva a escribir
 `$sdd`. Si el estado cambió, la opción ya no es válida o la intención es
 ambigua, refresca el menú o haz una sola pregunta; no adivines.
 
+Si el mensaje responde inequívocamente a una aprobación solicitada por la etapa
+SDD en curso, retoma **esa misma etapa** y verifica el artefacto o la
+configuración exactos antes de registrar la decisión. Una aprobación de
+configuración pendiente retoma `inicio`; no se interpreta como `nueva` ni abre
+el menú. No uses una aprobación para iniciar la etapa siguiente.
+
 ## Lenguaje natural
 
 Acepta frases corrientes además de los modos exactos. Por ejemplo:
 
 - “quiero comenzar” o “configura el proyecto” → `inicio`
-- “crea una spec” o “nueva funcionalidad” → `nueva`
+- “crea la primera spec” → `inicio`; “crea otra spec” o “nueva
+  funcionalidad” → `nueva` solo después de completar el primer ciclo de `inicio`
 - “corrige/cambia la spec” → `revisar`
 - “trabajemos en otra spec” → `foco`
 - “haz el plan” → `plan`
@@ -93,7 +105,8 @@ función y no como una lista plana:
 
 1. **Rutas principales, en orden:**
    - Primer ciclo: `inicio` → `plan` → `tareas` → `ejecutar` (una vez por
-     tarea) → `validar`. Aclara que `inicio` configura el proyecto y conduce la
+     tarea) → `validar`. Aclara que `inicio` configura un proyecto nuevo o
+     existente, registra la aprobación de esa configuración y conduce la
      primera spec; no se ejecuta `nueva` inmediatamente después.
    - Ciclos posteriores: `nueva` → `plan` → `tareas` → `ejecutar` (una vez por
      tarea) → `validar`.
@@ -114,7 +127,7 @@ modo y el resto como contexto de esa etapa:
 
 | Grupo | Modo | Modo del host | Runbook que debes leer completo | Resultado permitido |
 |---|---|---|---|---|
-| Preparación | `inicio` | Build/Default | `references/inicio.md` | Configurar el starter y conducir la primera spec |
+| Preparación | `inicio` | Build/Default | `references/inicio.md` | Configurar o retomar la configuración de un proyecto nuevo o existente y conducir la primera spec |
 | Ciclo 1 | `nueva` | Build/Default | `references/spec.md`, modo `NUEVA` | Crear y aprobar una spec nueva posterior |
 | Ciclo 2 | `plan` | Build/Default | `references/plan.md` | Diseñar o actualizar el plan técnico |
 | Ciclo 3 | `tareas` | Build/Default | `references/tasks.md` | Generar o ampliar las tareas |
@@ -142,6 +155,9 @@ el menú guiado; no modifiques archivos.
 4. Ejecuta solo el modo solicitado. Una invocación nunca aprueba por sí misma
    una spec, un plan o unas tareas, ni autoriza dependencias, producción,
    migraciones, efectos externos o acciones destructivas.
+   Antes de `nueva` o cualquier etapa posterior, exige la aprobación explícita
+   de la configuración. Si todavía no existe una spec numerada, la primera se
+   conduce mediante `inicio`, aunque se haya pedido `nueva`.
 5. No encadenes automáticamente la siguiente etapa. Al alcanzar el gate del
    runbook, detente y comunica el próximo comando seguro.
 6. Trata los argumentos posteriores al modo como contexto, no como permiso para
