@@ -1,5 +1,7 @@
 ---
 description: Abre el menú guiado o ejecuta una etapa del flujo SDD
+agent: coordinator
+subtask: false
 ---
 
 Usa la skill de proyecto `sdd` definida en `.agents/skills/sdd/SKILL.md`.

@@ -9,6 +9,32 @@ Ofrece una entrada guiada al flujo SDD y ejecuta una sola etapa por selección.
 Los runbooks autocontenidos en `references/` conservan el procedimiento
 detallado; carga solo el que corresponda a la etapa elegida.
 
+## Orquestación obligatoria
+
+Toda invocación de `sdd`, incluido el menú, una consulta, una selección numérica
+o una respuesta a un gate, debe pasar por `coordinator`. El agente principal no
+ejecuta por su cuenta los runbooks ni sustituye a `planner`, `implementer` o
+`reviewer`. Si ya está actuando como `coordinator`, no se vuelve a delegar a sí
+mismo.
+
+- En Codex, delega en el agente personalizado `coordinator` de
+  `.codex/agents/coordinator.toml`; espera su resultado y transmítelo al
+  usuario. El coordinador delega el trabajo especializado según el runbook.
+- En Claude Code, el agente que recibe `/sdd` delega en `coordinator` mediante
+  la herramienta de agentes y espera su resultado. No uses `context: fork` en
+  el adaptador: el coordinador necesita las respuestas y aprobaciones de la
+  conversación previa.
+- En OpenCode, el comando `/sdd` selecciona al agente `coordinator`; este
+  invoca a `planner`, `implementer` o `reviewer` cuando corresponda.
+
+Al delegar, transmite la petición y las decisiones relevantes del usuario,
+la raíz del proyecto, el modo SDD solicitado o la opción elegida, el último
+menú o gate pendiente y las rutas de skill y artefactos aplicables. En Codex y
+Claude Code, el agente principal solo comunica el resultado y solicita al
+usuario la siguiente decisión; no continúa la etapa en paralelo. Si el host
+no permite invocar a `coordinator` o a un subagente requerido, detente e indica
+el bloqueo. No conviertas la ausencia de agentes en una ejecución directa.
+
 ## Gate de compatibilidad con el modo del host
 
 Antes de cargar un runbook o ejecutar una etapa, determina el modo solicitado y,
@@ -48,7 +74,8 @@ Cuando la invocación no tenga argumentos, diga `menú` o pregunte qué sigue:
    Incluye `Ver estado y bloqueos` cuando ayude y `Ayuda completa` como última
    opción. No muestres etapas que el gate actual prohíbe.
 5. No cargues ningún runbook ni modifiques archivos al mostrar el menú. Espera
-   una respuesta con el número o una intención en lenguaje natural.
+   una respuesta con el número o una intención en lenguaje natural; en la
+   siguiente invocación vuelve a pasarla a `coordinator` con el menú mostrado.
 
 Usa estas reglas para recomendar la siguiente acción:
 

@@ -5,7 +5,9 @@ sandbox_mode = "read-only"
 developer_instructions = """
 Eres el coordinador SDD de este proyecto. Hablas con el usuario, determinas la
 etapa aplicable y delegas el trabajo especializado. No escribes código, no
-editas archivos, no ejecutas comandos ni consultas la web por cuenta propia.
+editas archivos ni consultas la web por cuenta propia. Puedes ejecutar solo
+consultas locales de lectura necesarias para verificar estado y artefactos; no
+ejecutas pruebas, builds ni comandos que produzcan efectos.
 
 ## Fuente de verdad
 

@@ -47,7 +47,9 @@ No inventar comandos. Si falta uno, registrarlo como bloqueo o pedirlo.
 - La entrada canónica del flujo es `.agents/skills/sdd/SKILL.md`; sus runbooks
   detallados viven en `.agents/skills/sdd/references/`.
 - Invocar `$sdd` en Codex o `/sdd` en Claude Code y OpenCode para obtener un
-  menú contextual con la siguiente acción segura.
+  menú contextual con la siguiente acción segura. La entrada pasa siempre por
+  `coordinator`, que delega cada etapa en el agente especializado; si los
+  agentes no están disponibles, el flujo se detiene sin ejecución directa.
 - Los modos explícitos siguen disponibles como atajos: `$sdd plan` o `/sdd plan`.
 - Primer ciclo: `inicio` → `plan` → `tareas` → `ejecutar` (una vez por tarea)
   → `validar`; `inicio` configura el proyecto y conduce la primera spec.

@@ -16,8 +16,8 @@ es configurar esas decisiones para el proyecto real mediante `inicio`.
 - Artefactos persistentes y versionados dentro de `specs/`.
 - Evidencia durable en `validation.md`; un resultado mostrado solo en el chat no
   cuenta como validación.
-- Cuatro agentes especializados: `coordinator`, `planner`, `implementer` y
-  `reviewer`.
+- Orquestación automática: la entrada SDD pasa por `coordinator`, que delega
+  en `planner`, `implementer` o `reviewer` según la etapa.
 - Seguridad por defecto: datos sintéticos, mínimo privilegio y autorización
   separada para dependencias, migraciones, producción o efectos externos.
 
@@ -74,14 +74,16 @@ y comandos del producto se registran durante la configuración inicial.
 
 ### 2. Abrirlo con tu agente
 
-| Host | Entrada SDD directa | Entrada multiagente |
+| Host | Entrada única | Cómo llega al coordinador |
 |---|---|---|
-| Codex | `$sdd` | Menciona `@coordinator` y describe la intención |
-| Claude Code | `/sdd` | Usa `@coordinator` o inicia `claude --agent coordinator` |
-| OpenCode | `/sdd` | Selecciona `coordinator` como agente primario con Tab |
+| Codex | `$sdd` | La skill delega en el agente personalizado `coordinator`. |
+| Claude Code | `/sdd` | El adaptador carga la skill y delega en `coordinator`. |
+| OpenCode | `/sdd` | El comando selecciona `coordinator` directamente. |
 
-La entrada directa aplica la skill desde el agente principal. La entrada
-multiagente pone a `coordinator` al frente para delegar el trabajo especializado.
+También puedes indicar la etapa, por ejemplo `$sdd plan` o `/sdd plan`. No
+necesitas mencionar manualmente a ningún agente. Si el host no puede invocar a
+`coordinator` o al especialista requerido, el flujo se detiene en vez de
+ejecutar la etapa sin delegación.
 
 ### 3. Configurar el proyecto
 
@@ -97,16 +99,16 @@ En Claude Code u OpenCode:
 /sdd inicio
 ```
 
-También puedes usar lenguaje natural con el coordinador:
+También puedes añadir contexto en lenguaje natural a la entrada:
 
 ```text
-@coordinator Acabo de crear este proyecto. Inicia el flujo SDD.
+$sdd inicio Acabo de crear este proyecto.
 ```
 
 Para un producto existente cuya configuración ya está documentada:
 
 ```text
-@coordinator Retoma inicio desde la aprobación pendiente de la configuración SDD.
+$sdd inicio Retoma desde la aprobación pendiente de la configuración SDD.
 ```
 
 La etapa `inicio` inspecciona el contexto disponible y pregunta una decisión
@@ -138,12 +140,13 @@ respuestas ni avanzará sin las aprobaciones requeridas.
 Ejemplo en Codex:
 
 ```text
-@coordinator Quiero que los usuarios puedan archivar tareas completadas.
+$sdd nueva Quiero que los usuarios puedan archivar tareas completadas.
 ```
 
 El coordinador utiliza la skill SDD, transmite el contexto al agente apropiado y
-te devuelve las preguntas, aprobaciones o resultados. No necesitas invocar
-manualmente a los otros tres agentes.
+te devuelve las preguntas, aprobaciones o resultados. `nueva` corresponde a
+ciclos posteriores; durante el primer ciclo usa `inicio`. No necesitas invocar
+manualmente a ninguno de los cuatro agentes.
 
 ## Gates y estados
 

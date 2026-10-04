@@ -7,4 +7,7 @@ description: Muestra un menú guiado y gestiona una etapa del flujo Spec-Driven 
 
 Lee completo `../../../.agents/skills/sdd/SKILL.md` y síguelo como fuente
 canónica. Trata el texto escrito después de `/sdd` como los argumentos de la
-invocación. No dupliques ni sustituyas sus reglas desde este adaptador.
+invocación. Pasa la invocación a `coordinator` con el contexto de la
+conversación, como exige la sección «Orquestación obligatoria»; no ejecutes la
+etapa en el agente principal. No dupliques ni sustituyas las reglas del flujo
+desde este adaptador.
