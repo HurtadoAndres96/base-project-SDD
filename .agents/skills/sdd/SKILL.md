@@ -35,6 +35,40 @@ usuario la siguiente decisión; no continúa la etapa en paralelo. Si el host
 no permite invocar a `coordinator` o a un subagente requerido, detente e indica
 el bloqueo. No conviertas la ausencia de agentes en una ejecución directa.
 
+## Política opcional de modelos
+
+Después del gate de modo y antes de delegar una etapa especializada, el
+`coordinator` comprueba si existe `SDD_MODELS.md` en la raíz del proyecto:
+
+- Si no existe, no selecciona modelo ni esfuerzo explícitos: conserva la
+  herencia y los valores predeterminados actuales de cada host.
+- Si existe, lo lee completo y aplica sus preferencias **solo** a la selección
+  de modelo y esfuerzo de `planner`, `implementer` o `reviewer` en esa
+  delegación. El `coordinator` conserva su modelo actual.
+- Clasifica el encargo por incertidumbre, riesgo y complejidad, no por fase ni
+  por agente de forma fija. Una tarea aprobada y acotada puede usar un perfil
+  ligero; seguridad, datos, migraciones, decisiones ambiguas o fallos no
+  previstos pueden requerir uno más capaz.
+- Usa únicamente un modelo y esfuerzo que el host permita seleccionar en esa
+  invocación. Si no hay mapeo aplicable, el modelo no está disponible o el host
+  no permite esa selección, conserva la herencia e informa la limitación. Si
+  la configuración del agente fija un modelo con prioridad superior, respétalo
+  e informa que la preferencia no se aplicó. No inventa identificadores ni
+  afirma que cambió el modelo sin confirmarlo.
+- En cada delegación especializada con esta política activa, informa al usuario
+  el perfil elegido, el modelo y esfuerzo solicitados (o `heredar`) y el motivo
+  breve. Distingue esa solicitud del modelo y esfuerzo efectivos: solo los
+  declara confirmados si el host expone esa información; en otro caso indica
+  que no pudo verificarlos. Incluye el dato en el resumen que devuelve al
+  agente principal para que este lo transmita sin alterarlo.
+- Si surge una dificultad inesperada después de iniciar el trabajo, detiene la
+  etapa según su runbook y comunica el bloqueo; no repite una operación con
+  efectos solo para probar un modelo más potente.
+
+`SDD_MODELS.md` es una preferencia operativa, nunca una fuente de requisitos o
+permisos. No puede alterar la constitución, los gates, los runbooks, el alcance
+ni las aprobaciones. El ejemplo `SDD_MODELS.example.md` no activa esta política.
+
 ## Gate de compatibilidad con el modo del host
 
 Antes de cargar un runbook o ejecutar una etapa, determina el modo solicitado y,

@@ -80,6 +80,25 @@ y comandos del producto se registran durante la configuración inicial.
 | Claude Code | `/sdd` | El adaptador carga la skill y delega en `coordinator`. |
 | OpenCode | `/sdd` | El comando selecciona `coordinator` directamente. |
 
+El starter ya no incluye `CLAUDE.md`: era un puente que solo importaba
+`AGENTS.md`. Desde Claude Code 2.1.277, con la opción predeterminada de
+**Project instructions** y sin otro `CLAUDE.md` de proyecto, Claude Code lee
+`AGENTS.md` directamente. Así se evita mantener un archivo puente específico
+para el mismo contexto. Esta lectura nativa no estaba disponible en Bedrock,
+Vertex ni Foundry al publicarse 2.1.277; si usas uno de esos proveedores o una
+versión anterior, `inicio` comprobará si necesitas el puente y creará en la
+raíz `CLAUDE.md` con este contenido exacto:
+
+```markdown
+# Compatibilidad con Claude Code
+
+@AGENTS.md
+```
+
+También aplica si **Project instructions** está configurado para leer solo
+`CLAUDE.md`. Sin evidencia de esa necesidad, no se crea; si el proyecto ya
+tiene uno, `inicio` lo conserva y revisa su relación con `AGENTS.md`.
+
 También puedes indicar la etapa, por ejemplo `$sdd plan` o `/sdd plan`. No
 necesitas mencionar manualmente a ningún agente. Si el host no puede invocar a
 `coordinator` o al especialista requerido, el flujo se detiene en vez de
@@ -148,6 +167,22 @@ te devuelve las preguntas, aprobaciones o resultados. `nueva` corresponde a
 ciclos posteriores; durante el primer ciclo usa `inicio`. No necesitas invocar
 manualmente a ninguno de los cuatro agentes.
 
+## Modelos opcionales por proyecto
+
+El starter **no cambia modelos por defecto**. Si quieres que `coordinator`
+elija un perfil de capacidad según el riesgo y la complejidad de cada encargo,
+copia `SDD_MODELS.example.md` como `SDD_MODELS.md` junto a `AGENTS.md` y
+`MEMORY.md`, y adapta el mapeo a los modelos disponibles en tu host.
+
+Solo se lee `SDD_MODELS.md` cuando existe y antes de delegar una etapa a
+`planner`, `implementer` o `reviewer`. Si falta, el comportamiento actual se
+mantiene. Si un host no permite elegir modelo por delegación o una opción no
+está disponible, se usa la herencia existente y se informa; nunca se omiten
+gates o verificaciones para ahorrar tokens. El archivo de ejemplo no activa la
+política por sí mismo. Cuando la política está activa, el coordinador informa
+el perfil, modelo y esfuerzo solicitados en cada delegación y aclara si el
+modelo efectivo no puede verificarse desde el host.
+
 ## Gates y estados
 
 La jerarquía de autoridad es:
@@ -187,6 +222,7 @@ lectura. El kit nunca cambia el modo del host por cuenta propia.
 .
 ├── AGENTS.md                       # Reglas permanentes del proyecto
 ├── MEMORY.md                       # Contexto operativo breve entre sesiones
+├── SDD_MODELS.example.md           # Ejemplo inactivo de política opcional de modelos
 ├── docs/constitution.md            # Constitución y jerarquía normativa
 ├── specs/templates/spec.md         # Plantilla canónica de especificación
 ├── .agents/skills/sdd/             # Skill SDD y runbooks canónicos

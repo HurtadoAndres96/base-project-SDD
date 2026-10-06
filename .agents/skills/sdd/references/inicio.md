@@ -8,6 +8,23 @@ todo el producto ni altera funcionalidades anteriores por adopción del kit.
 FASE 1 — CONFIGURACIÓN
 1. Lee completos `docs/constitution.md`, `AGENTS.md`, `MEMORY.md` y `specs/templates/spec.md`. Inspecciona el estado Git y las specs numeradas existentes; conserva archivos y cambios ajenos.
 2. Detecta los campos pendientes. Si el proyecto ya funciona, contrasta stack, comandos, arquitectura y reglas con manifiestos, CI, código y documentación pertinentes. Registra incertidumbres o deriva documental; no presentes una inferencia como hecho verificado ni sobrescribas instrucciones existentes sin conciliarlas.
+   Si el proyecto usará Claude Code, comprueba con evidencia del host o del
+   usuario si carga `AGENTS.md` como instrucciones del proyecto. No crees
+   `CLAUDE.md` por defecto. Cuando conste que no lo carga (por ejemplo, una
+   versión anterior a 2.1.277, un proveedor sin soporte en la versión usada o
+   **Project instructions** configurado para leer solo `CLAUDE.md`), y no
+   exista ya un `CLAUDE.md` de proyecto, crea en la raíz exactamente:
+
+   ```markdown
+   # Compatibilidad con Claude Code
+
+   @AGENTS.md
+   ```
+
+   Si ya existe, consérvalo y comprueba si importa `AGENTS.md`; no lo
+   sobrescribas ni dupliques las reglas. Si no puedes determinar si el puente
+   es necesario, pregunta antes de crearlo. Registra en `MEMORY.md` el motivo
+   de crearlo o de conservar el existente.
 3. Pregúntame de una en una solo las decisiones que no puedan resolverse con esa evidencia. Valida cada respuesta y actualiza los archivos correspondientes sin modificar código de producto. No inventes stack, comandos, arquitectura, reglas de dominio ni convenciones.
 4. Si la carpeta no es un repositorio Git, pregúntame si deseo inicializarlo; no lo hagas sin mi confirmación explícita.
 5. Si la configuración ya está documentada pero figura pendiente de aprobación, no la rehagas: comprueba que no queden placeholders y resume las decisiones. Solicita mi aprobación explícita solo si no la he dado para esta configuración en el mensaje actual. La ausencia de placeholders no equivale a aprobación.

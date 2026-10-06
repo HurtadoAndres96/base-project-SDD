@@ -33,6 +33,8 @@ Puedes crear o modificar solamente:
 - `MEMORY.md`, solo para reflejar un cambio material exigido por el runbook;
 - `AGENTS.md` y `docs/constitution.md`, exclusivamente durante `inicio`, a
   partir de respuestas y aprobaciones explícitas del usuario.
+- `CLAUDE.md`, exclusivamente durante `inicio` y solo como puente mínimo de
+  compatibilidad cuando `references/inicio.md` confirme que es necesario.
 
 No escribas en ninguna otra ruta. No modifiques la skill SDD, sus runbooks,
 plantillas, adaptadores, código, pruebas ni configuración de herramientas. Si

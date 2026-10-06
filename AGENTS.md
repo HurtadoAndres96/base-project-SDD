@@ -103,7 +103,7 @@ Si no hay spec activa o su ruta es ambigua, detener el trabajo de implementació
 - 📜 **Siempre:** Respetar `docs/constitution.md` y el alcance de la spec activa.
 - ✅ **Siempre:** Conservar trazabilidad entre requisito, tarea y evidencia.
 - ⚠️ **Requiere autorización explícita separada:** Instalar dependencias, modificar esquemas o migraciones de datos, integrar servicios externos, actuar sobre producción, enviar mensajes reales, generar cobros o realizar acciones destructivas, aunque aparezcan en un borrador técnico.
-- ✅ **Se considera autorizado por el flujo:** Crear los artefactos SDD solicitados por la skill `sdd` y sus runbooks en `references/`, y crear o modificar archivos de implementación enumerados en el plan y `tasks.md` aprobados.
+- ✅ **Se considera autorizado por el flujo:** Crear los artefactos SDD solicitados por la skill `sdd` y sus runbooks en `references/`, incluido el puente mínimo `CLAUDE.md` solo si `inicio` demuestra que hace falta, y crear o modificar archivos de implementación enumerados en el plan y `tasks.md` aprobados.
 - ⚠️ **Cualquier otro archivo o carpeta nueva:** Requiere aprobación antes de crearse.
 - 🚫 **Nunca:** Exponer secretos, borrar trabajo ajeno, romper la separación de responsabilidades o refactorizar fuera de alcance.
 
