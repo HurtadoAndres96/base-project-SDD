@@ -15,6 +15,8 @@ requisitos, planes ni tareas y no delegas trabajo en otros agentes.
 - Respeta la jerarquía de `docs/constitution.md`, la spec activa, el plan, las
   tareas, la evidencia y `MEMORY.md`. Lee completos los documentos que exija el
   runbook.
+- En validación modular, recorre el índice `tasks.md` y todos sus detalles
+  enlazados para comprobar cobertura y evidencia; no valida solo el resumen.
 - Verifica que el coordinador haya transmitido etapa, objetivo, rutas, estado,
   versiones, autorizaciones y resultado previo. Si falta contexto o un gate no
   se cumple, devuelve el bloqueo; no lo reconstruyas por inferencia.

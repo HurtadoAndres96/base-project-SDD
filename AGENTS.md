@@ -65,12 +65,20 @@ No inventar comandos. Si falta uno, registrarlo como bloqueo o pedirlo.
   efectos, indicar cómo cambiar de modo y nunca cambiarlo automáticamente.
 - Cada invocación ejecuta una sola etapa y se detiene en su gate. No encadenar
   aprobación, planificación, tareas, implementación o validación automáticamente.
+- `tasks.md` puede ser monolítico o un índice modular que enlaza detalles en
+  `specs/NNN-nombre/tasks/T-NNN.md`. No crear un segundo checklist o resumen
+  con estado propio.
+- En `$sdd tareas`, usar formato modular si el conjunto supera 15 tareas o si
+  el `tasks.md` monolítico supera 300 líneas. Estos son los umbrales por defecto;
+  una configuración explícita del proyecto en este archivo puede ajustarlos.
+  Una conversión de tareas existentes conserva su historia y requiere aprobar
+  el nuevo conjunto antes de ejecutar.
 
 ## Protocolo obligatorio antes de trabajar
 
 1. Leer `docs/constitution.md` completo.
 2. Leer `MEMORY.md` y obtener de allí la ruta relativa de la especificación activa. Comparar estado y versiones reflejados en memoria con los artefactos; si difieren, los artefactos prevalecen y se corrige la memoria.
-3. Para planificar o implementar, leer completos `spec.md`, `plan.md` y `tasks.md` aplicables; leer también `validation.md` al validar o remediar.
+3. Para planificar o implementar, leer completos `spec.md` y `plan.md` aplicables y el `tasks.md` completo cuando exista. Si `tasks.md` es modular, al ejecutar leer solo el detalle de la primera tarea elegible; al crear, revisar o validar el conjunto, revisar todos los detalles referenciados. Leer también `validation.md` al validar o remediar.
 4. Comprobar el estado de aprobación requerido y si existen dudas bloqueantes.
 5. Inspeccionar el estado del repositorio y preservar cambios ajenos o no relacionados. Si aún no existe un repositorio, indicarlo sin inicializarlo por cuenta propia.
 6. Explicar brevemente el enfoque antes de modificar archivos.
@@ -82,11 +90,12 @@ Si no hay spec activa o su ruta es ambigua, detener el trabajo de implementació
 - Seguir la jerarquía y las puertas de aprobación de la constitución.
 - Realizar cambios pequeños, incrementales y fáciles de revertir.
 - Implementar únicamente la primera tarea `[ ]` con estado `Pendiente`, versiones activas compatibles y dependencias completas.
-- Usar rojo-verde para comportamiento automatizable. Para otros tipos de tarea, ejecutar la verificación declarada en `tasks.md`.
+- Usar rojo-verde para comportamiento automatizable. Para otros tipos de tarea, ejecutar la verificación declarada en `tasks.md` o en el detalle modular de la tarea.
 - No modificar una prueba solo para ocultar un defecto. Si la spec, el plan y el test discrepan, detenerse y resolver la contradicción.
 - No afirmar que algo funciona sin ejecutar la verificación correspondiente y registrar su resultado.
 - No mezclar refactors oportunistas con la tarea activa.
 - Mantener el invariante de tareas: `[x]` solo con estado `Completada`; `[ ]` con `Pendiente`, `Bloqueada` u `Obsoleta`. Si checkbox y estado discrepan, detenerse y corregir la inconsistencia antes de continuar.
+- En formato modular, `tasks.md` es la única fuente de IDs, orden, estado, vigencia, dependencias y cobertura; cada detalle contiene solo el desarrollo y la evidencia de su tarea. Si falta un detalle o no coincide su ID, detenerse.
 - No renumerar ni reutilizar identificadores aprobados. Conservar elementos retirados u obsoletos con motivo y versión para mantener trazabilidad histórica.
 
 ## Memoria
@@ -103,7 +112,7 @@ Si no hay spec activa o su ruta es ambigua, detener el trabajo de implementació
 - 📜 **Siempre:** Respetar `docs/constitution.md` y el alcance de la spec activa.
 - ✅ **Siempre:** Conservar trazabilidad entre requisito, tarea y evidencia.
 - ⚠️ **Requiere autorización explícita separada:** Instalar dependencias, modificar esquemas o migraciones de datos, integrar servicios externos, actuar sobre producción, enviar mensajes reales, generar cobros o realizar acciones destructivas, aunque aparezcan en un borrador técnico.
-- ✅ **Se considera autorizado por el flujo:** Crear los artefactos SDD solicitados por la skill `sdd` y sus runbooks en `references/`, incluido el puente mínimo `CLAUDE.md` solo si `inicio` demuestra que hace falta, y crear o modificar archivos de implementación enumerados en el plan y `tasks.md` aprobados.
+- ✅ **Se considera autorizado por el flujo:** Crear los artefactos SDD solicitados por la skill `sdd` y sus runbooks en `references/`, incluidos los detalles modulares de tareas y el puente mínimo `CLAUDE.md` solo si `inicio` demuestra que hace falta, y crear o modificar archivos de implementación enumerados en el plan y el conjunto de tareas aprobados.
 - ⚠️ **Cualquier otro archivo o carpeta nueva:** Requiere aprobación antes de crearse.
 - 🚫 **Nunca:** Exponer secretos, borrar trabajo ajeno, romper la separación de responsabilidades o refactorizar fuera de alcance.
 

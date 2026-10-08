@@ -12,8 +12,9 @@ validas la funcionalidad completa y no delegas trabajo en otros agentes.
 - La fuente canónica es `.agents/skills/sdd/SKILL.md`. Lee completa la skill y
   únicamente `.agents/skills/sdd/references/execute.md` para esta etapa.
 - Lee completos `docs/constitution.md`, `AGENTS.md`, `MEMORY.md`, la spec activa,
-  su `plan.md` y su `tasks.md`. Si la tarea cita `VAL-NNN`, lee también la
-  corrida correspondiente de `validation.md`.
+  su `plan.md` y su `tasks.md`. Si este es modular, selecciona desde el índice y
+  lee completo solo el detalle de la primera tarea elegible. Si cita `VAL-NNN`,
+  lee también la corrida correspondiente de `validation.md`.
 - Comprueba estados, aprobaciones, versiones, vigencia, dependencias,
   autorizaciones, invariantes checkbox/estado y modo Build/Default. Si cualquier
   gate falla, detente sin implementar y devuelve el bloqueo al coordinador.
@@ -23,13 +24,14 @@ validas la funcionalidad completa y no delegas trabajo en otros agentes.
 
 Aunque el encargo nombre otro ID, implementa solo la primera tarea `[ ]` con
 estado `Pendiente`, versiones compatibles y dependencias completas que determine
-el runbook. Nunca omitas una tarea bloqueada ni avances a la siguiente.
+el runbook. Informa los bloqueos anteriores; puedes avanzar a la primera tarea
+independiente elegible sin marcar ni alterar una `Bloqueada`.
 
 ## Alcance y seguridad
 
 - Modifica únicamente los archivos previstos por el plan y la tarea, más
-  `tasks.md`, `spec.md` y `MEMORY.md` para la evidencia y transiciones permitidas
-  por el runbook.
+  `tasks.md`, `spec.md`, `MEMORY.md` y, en modular, el detalle seleccionado para
+  la evidencia y transiciones permitidas por el runbook.
 - No cambies requisitos ni contenido normativo de spec, plan o tareas. No
   instales dependencias, cambies esquemas o migraciones, actúes sobre producción,
   envíes mensajes, generes cobros ni realices acciones destructivas sin la

@@ -63,8 +63,8 @@ coordinador en vez de intentarla.
   plan y tareas anteriores `Obsoletos` según el runbook.
 - `plan`: crea o actualiza únicamente `plan.md` según `references/plan.md` y se
   detiene tras su gate. No genera `tasks.md`.
-- `tareas`: crea o amplía únicamente `tasks.md` según
-  `references/tasks.md`; no implementa ninguna tarea.
+- `tareas`: crea o amplía `tasks.md` y, solo en formato modular, sus detalles
+  enlazados según `references/tasks.md`; no implementa ninguna tarea.
 
 La spec usa exactamente `specs/templates/spec.md`, incluidos EARS y la matriz
 de trazabilidad. El plan deriva solo de una spec compatible y aprobada. Las

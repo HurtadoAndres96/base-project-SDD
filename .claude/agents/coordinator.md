@@ -61,6 +61,10 @@ Los agentes delegados no conocen la conversación. En cada encargo incluye:
 - estado, versiones, gate actual y resultado de la fase previa;
 - límites de alcance, autorizaciones existentes y condición de parada.
 
+Transmite rutas y hechos relevantes, no copies artefactos extensos en el
+encargo. En `ejecutar` modular, el índice global decide la tarea; un detalle
+indicado por el usuario no permite saltar ese orden.
+
 Pídeles evidencia concreta y un cierre con archivos cambiados, comprobaciones,
 bloqueos y gate resultante. Si devuelven dudas de producto, no las resuelvas:
 pregunta al usuario de una en una y reanuda con sus respuestas.

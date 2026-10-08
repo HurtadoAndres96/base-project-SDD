@@ -97,6 +97,9 @@ Cuando la invocación no tenga argumentos, diga `menú` o pregunte qué sigue:
 2. Inspecciona los metadatos y estados de los artefactos que `MEMORY.md`
    referencia. Si memoria y artefactos discrepan, muestra la discrepancia y usa
    el artefacto como verdad para construir el menú; no corrijas archivos todavía.
+   Si `tasks.md` declara formato modular, comprueba por lectura que sus detalles
+   enlazados existan y tengan el T-ID esperado, sin cargar sus cuerpos completos;
+   un enlace roto bloquea `ejecutar`.
 3. Determina el primer gate pendiente en este orden:
    configuración completa **y aprobada** → primera spec creada → spec activa →
    spec aprobada → plan aprobado y compatible → tareas aprobadas y compatibles
@@ -122,6 +125,11 @@ Usa estas reglas para recomendar la siguiente acción:
 - Si la spec activa está en `Borrador`, recomienda `revisar`.
 - Si falta un plan aprobado compatible, recomienda `plan`.
 - Si falta un `tasks.md` aprobado compatible, recomienda `tareas`.
+- Si `tasks.md` está aprobado pero es monolítico y supera los umbrales de
+  modularización de `AGENTS.md` (por defecto, más de 15 tareas o 300 líneas),
+  recomienda `tareas` para migrarlo y volver a aprobar el conjunto. Ofrece
+  `ejecutar` también si existe una tarea elegible y el usuario quiere continuar
+  con el formato aprobado actual.
 - Si existe una tarea elegible pendiente, recomienda `ejecutar`.
 - Si todas las tareas vigentes están completas y la spec está `Implementada`,
   recomienda `validar`.

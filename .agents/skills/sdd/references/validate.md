@@ -3,16 +3,16 @@
 Valida de extremo a extremo la funcionalidad activa. No corrijas defectos durante esta fase: produce evidencia durable y separa validación de implementación.
 
 PREPARACIÓN
-1. Lee completos `docs/constitution.md`, `AGENTS.md`, `MEMORY.md`, `spec.md`, `plan.md` y `tasks.md`.
-2. Confirma que spec esté `Implementada`, plan y `tasks.md` estén `Aprobados`, y que todas las tareas cuya `Vigencia` incluya sus versiones estén `Completadas`, sin ninguna `Bloqueada`. Las tareas `Obsoletas` se excluyen solo si tienen motivo y reemplazo trazables. Si algo falla, registra el bloqueo y no declares cumplimiento.
+1. Lee completos `docs/constitution.md`, `AGENTS.md`, `MEMORY.md`, `spec.md`, `plan.md` y `tasks.md`. Si las tareas son modulares, lee todos los detalles referenciados para comprobar cobertura y evidencia, no solo el índice.
+2. Confirma que spec esté `Implementada`, plan y el conjunto de tareas estén `Aprobados`, y que todas las tareas cuya `Vigencia` incluya sus versiones estén `Completadas`, sin ninguna `Bloqueada`. En modular, comprueba que cada detalle enlazado existe, tiene el T-ID correcto y no hay duplicados ni huérfanos. Las tareas `Obsoletas` se excluyen solo si tienen motivo y reemplazo trazables. Si algo falla, registra el bloqueo y no declares cumplimiento.
 3. Inspecciona el estado del repositorio para detectar cambios no previstos y registra el entorno relevante: fecha/hora RFC 3339 con zona, revisión/commit si existe, sistema y versiones de runtime; omite nombres de usuario, host y rutas personales.
 4. Confirma que el entorno y los datos sean seguros. No envíes mensajes reales, generes cobros, ejecutes migraciones productivas ni modifiques producción sin autorización explícita para esa acción exacta.
 
 EVIDENCIA DURABLE
 Crea o actualiza `validation.md` en la carpeta de la spec. No sobrescribas corridas anteriores: añade una nueva sección fechada con:
-1. Versiones exactas de spec, plan y `tasks.md`, entorno y alcance validado.
+1. Versiones exactas de spec, plan y `tasks.md` (que cubre sus detalles enlazados si es modular), entorno y alcance validado.
 2. Comandos ejecutados, código de salida y resumen relevante; nunca incluyas secretos ni datos personales.
-3. Matriz `H/RF/RNF/CL → plan → tareas → test o evidencia → resultado`.
+3. Matriz `H/RF/RNF/CL → plan → T-ID y ruta de detalle si es modular → test o evidencia → resultado`.
 4. Verificaciones manuales con precondiciones, pasos, resultado esperado, resultado observado y rol responsable/evidencia; no incluyas identidades ni datos sensibles.
 5. Hallazgos numerados `VAL-NNN`, cada uno con severidad, IDs afectados, evidencia y condición concreta de cierre. Los IDs son consecutivos y nunca se reutilizan entre corridas.
 6. Estado de cada hallazgo previo abierto: `RESUELTO | NO RESUELTO | NO APLICA`, con evidencia actual. No edites la corrida histórica donde se originó.

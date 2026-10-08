@@ -56,6 +56,27 @@ Cada invocación ejecuta una sola etapa y se detiene en su gate. Una tarea de
 implementación requiere una invocación de `ejecutar`; nunca se completan todas
 las tareas automáticamente.
 
+### Tareas extensas sin cargar todo el detalle
+
+Una spec pequeña puede conservar `tasks.md` monolítico. Al superar 15 tareas o
+300 líneas monolíticas (umbrales ajustables en `AGENTS.md`), `$sdd tareas`
+crea `tasks.md` como índice canónico liviano y un detalle
+por tarea en `specs/NNN-nombre/tasks/T-NNN.md`. El índice conserva el orden
+global, los estados, las dependencias, las versiones y la cobertura; cada
+detalle guarda pasos, archivos previstos, verificación y evidencia. Ambos forman
+un único conjunto que se aprueba y versiona desde `tasks.md`: no se crea otro
+`tasks-overview.md` con estados duplicados.
+
+En `$sdd ejecutar`, se lee el índice completo para elegir la primera tarea
+elegible y solo después se carga su detalle. Pasar una ruta concreta no permite
+elegir otra tarea ni ocultar bloqueos; una tarea independiente puede avanzar
+si se informa el bloqueo previo. Al validar se recorren todos los detalles
+vigentes. Las specs con `tasks.md` monolítico siguen funcionando hasta la
+siguiente etapa `tareas`; al superar el umbral, allí se migran conservando
+IDs/evidencia y se vuelve a aprobar el conjunto. Esta primera mejora reduce el
+detalle de tareas cargado en cada ejecución, pero `spec.md` y `plan.md` siguen
+leyéndose completos.
+
 ## Inicio rápido
 
 ### 1. Obtener el starter
